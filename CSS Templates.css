@@ -1,0 +1,174 @@
+/* Check Bullet Icon */
+ul.check-icon > li {position: relative;list-style-type: none;padding-left: 0.3em;}
+ul.check-icon > li:before {content: '\4e';font-family: etmodules;position: absolute;left: -16px;font-size: 0.9em;top: -2px;color: #f25436;}
+/* ############################################################ */
+
+/* Hide secondary menu on scroll */
+#top-header.et-fixed-header  {transform: translateY(-78px); transition: 0.9s;}
+header#main-header.et-fixed-header {top: 0 !important;}
+.logged-in #main-header.et-fixed-header {top: 30px !important;}
+/* ############################################################ */
+
+/* Gallery Masonry */
+.et_pb_gallery_grid .et_pb_gallery_items {
+    display: grid;
+    grid-template-columns: repeat(5,19.666666%);
+    gap: 5px;
+}
+.et_pb_gallery_grid .et_pb_gallery_items .et_pb_gallery_item:nth-child(4n+2) {
+    grid-row: span 2;
+    grid-column: span 2;
+}
+.et_pb_gallery_grid .et_pb_gallery_items .et_pb_gallery_item {
+    width: 100%;
+    margin: 0;
+}
+/* ############################################################ */
+
+/* Custom Checkox - contact form 7 */
+.check-field span.wpcf7-list-item > label {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding-left: 19px;
+}
+
+.check-field span.wpcf7-list-item input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.check-field span.wpcf7-list-item > label .wpcf7-list-item-label:before {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 13px;
+    width: 13px;
+    content: '';
+    border: 1px solid;
+}
+
+span.wpcf7-list-item.check-field  > label:hover:after {
+    background-color: #ccc;
+}
+
+span.wpcf7-list-item.check-field  input:checked ~ .wpcf7-list-item-label:after {
+     display: block;
+}
+span.wpcf7-list-item.check-field  input:checked ~ .wpcf7-list-item-label:before{
+    background-color: #000 !important;
+}
+span.wpcf7-list-item.check-field  .wpcf7-list-item-label:after{
+      content: '\4e';
+      font-family: etmodules;
+      position: absolute;
+      top: -1px;
+      left: 1px;
+      font-size: 0.8em;
+      font-weight: bold;
+      color: #fff;
+}
+/* ############################################################ */
+
+/* CUSTOM SCROLL BAR */
+.custom-scroll {
+    min-height: 528px;
+    overflow-y: scroll;
+    padding-right: 34px;
+}
+
+.custom-scroll::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.12);
+	border-radius: 10px;
+	background-color: #f5f5f5;
+}
+
+.custom-scroll::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #f5f5f5;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #2878f069;
+}
+/* ############################################################ */
+
+/* NATIVE OWL CAROUSEL ARROW HOVER INITIAL EFFECT */
+.owl-carousel .owl-nav button.owl-prev{
+    transform: translateX(189px);
+}
+.owl-carousel .owl-nav button.owl-next{
+    transform: translateX(-189px);
+}
+.owl-carousel:hover .owl-nav button{
+    opacity: 1;
+    transform: translate(0, 0);
+    transition: 0.3s;
+}
+
+.owl-carousel .owl-nav button {
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.owl-carousel {
+    padding: 0px 45px;
+}
+/* ############################################################ */
+/* DIVI MEDIA QUERIES */
+/*** Responsive Styles Large Desktop And Above ***/
+@media all and (min-width: 1405px) {
+  
+}
+ 
+/*** Responsive Styles Standard Desktop Only ***/
+@media all and (min-width: 1100px) and (max-width: 1405px) {
+ 
+}
+
+/*** Responsive Styles Standard Desktop Only ***/
+@media all and (min-width: 981px) and (max-width: 1099px) {
+ 
+}
+
+/*** Responsive Styles Standard Desktop Only ***/
+@media all and (min-width: 981px) {
+ 
+}
+
+/*** Responsive Styles Tablet And Below ***/
+@media all and (max-width: 980px) {
+ 
+}
+ 
+/*** Responsive Styles Tablet Only ***/
+@media all and (min-width: 768px) and (max-width: 980px) {
+ 
+}
+ 
+/*** Responsive Styles Smartphone Only ***/
+@media all and (max-width: 767px) {
+ 
+}
+/* Responsive Small Tablets */
+@media all and (min-width: 480px) and (max-width: 767px) {
+    
+}
+
+/*** Responsive Styles Smartphone Portrait ***/
+@media all and (max-width: 479px) {
+ 
+}
+/* ############################################################### */

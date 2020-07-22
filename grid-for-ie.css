@@ -1,0 +1,22 @@
+
+/******IE 10 UP CSS******/
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+	#main-header.et-fixed-header {
+    	top: 0 !important;
+	}
+	
+	
+	#issample-tabs ul>li{
+    	width: 32%;
+	}
+	#issample-tabs ul>li:nth-child(3n+1) {
+		margin-right: 2%;
+	}
+	#issample-tabs ul>li:nth-child(3n+2) {
+		margin-right: 2%;
+	}
+	#issample-tabs ul>li:nth-child(3n+3) {
+		margin-bottom: 10px;
+	}
+}
+/****End IE CSS****/
