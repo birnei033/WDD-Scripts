@@ -570,13 +570,16 @@ var addHash = (link, hash)=>{
     });
     return menu;
 }
-// get all text Nodes
+
+// Set default language (English) if there is no valid language hash.
 if(document.location.hash != ''){
 	var currentLanguage = locCode[document.location.hash];
 }else{
 	var currentLanguage = 'English';
 }
 
+// get all text Nodes
+// Find text nodes under the parent Element
 function textNodesUnder(node){
     var all = [];
     for (node=node.firstChild;node;node=node.nextSibling){

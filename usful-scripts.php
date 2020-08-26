@@ -165,3 +165,33 @@ function get_build_gallery($atts){
 add_shortcode('build-gallery', 'get_build_gallery');
 
 // ##################### END #####################################
+
+// SIDEBAR SHORTCODE
+function sidebar_shortcode($atts){
+	extract(shortcode_atts(array('name' => null), $atts));
+	ob_start();
+		dynamic_sidebar($name);
+	$sidebar=ob_get_clean();
+	return $sidebar;
+}add_shortcode('get_sidebar', 'sidebar_shortcode');
+// ##################### END #####################################
+
+
+/**
+ * Create a sidebar
+ * url https://developer.wordpress.org/reference/functions/register_sidebar/
+ */
+function sidebar_registration() {
+    register_sidebar( array(
+        'name'          => __( 'Sidebar name', 'textdomain' ),
+        'id'            => 'sidebar-id',
+        'description'   => __( 'Insert description here', 'textdomain' ),
+        'before_widget' => '<li id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</li>',
+        'before_title'  => '<h2 class="widgettitle">',
+        'after_title'   => '</h2>',
+    ) );
+}
+add_action( 'widgets_init', 'sidebar_registration' );
+
+// ##################### END #####################################
