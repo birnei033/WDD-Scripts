@@ -13,11 +13,12 @@ function appthemes_add_quicktags()
       QTags.addButton( 'wdd_show_thumbnail', 'post-thumbnail', '[post-thumbnail size="full"]');
       QTags.addButton( 'wdd_show_permalink', 'post-link', '[post-link]');
       QTags.addButton( 'wdd_show_title', 'title', '[title]');
-      QTags.addButton( 'wdd_get_acf_field', 'get-field', '[get-field key=""]');
+      QTags.addButton( 'wdd_get_acf_field', 'acf field', '[acf field="field_name" post_id=""]');
       QTags.addButton( 'wdd_get_category', 'post-category', '[post-category]');
       QTags.addButton( 'wdd_get_date', 'post-date', '[post-date]');
       QTags.addButton( 'wdd_get_author', 'post-author', '[post-author]');
 	  QTags.addButton( 'wdd_get_slug', 'slug', '[slug]');
+      QTags.addButton( 'wdd_get_comment_count', 'post-comment-count', '[post-comment-count]');
       QTags.addButton( 'wdd_get_comment_count', 'post-comment-count', '[post-comment-count]');
     </script>
     <?php
@@ -50,6 +51,7 @@ add_shortcode('post-link', 'wdd_show_permalink');
 //Shortcode to show the post thumbnail if present
 function wdd_show_thumbnail($atts)
 {
+    global $post;
     extract(shortcode_atts(
         array(
             'size' => 'full',
@@ -82,85 +84,6 @@ function wdd_show_content($atts)
 }
 add_shortcode('post-content', 'wdd_show_content');
 
-//Shortcode to get the field of the Advanced custom fields (ACF) plugin
-function wdd_getField($atts)
-{
-extract(shortcode_atts(array(
-'key' => '',
-), $atts));
-if ($key == '') {
-$key = 'attribute key is required.';
-}
-return get_field($key, $post->ID);
-}add_shortcode('get-field', 'wdd_getField');
- 
-
-// function wdd_getField($atts)
-// {
-//     extract(shortcode_atts(array(
-//         'key' => '',
-//         'span_after_space' => 0,
-//         'type' => '',
-//     ), $atts));
-//     if ($key == '') {
-//         $key = 'attribute key is required.';
-//     }
-
-//     $return = '';
-
-//     if ($key == 'title') {
-//         $return = get_the_title();
-//     } else {
-//         $return = get_field($key);
-//     }
-
-//     if (is_numeric($span_after_space) && $span_after_space > 0) {
-//         $str_arr = explode(" ", $return);
-//         $return = '';
-//         for ($i = 0; $i < count($str_arr); ++$i) {
-
-//             if ($i == $span_after_space) {
-//                 $return .= '<span>';
-//             }
-//             $return .= $str_arr[$i];
-//             if ($i < count($str_arr) - 1) {
-//                 $return .= ' ';
-//             } else {
-//                 $return .= '</span>';
-//             }
-//         }
-//     }
-
-//     if ($type) {
-//         $if_hidden = "";
-//         if (!$return) {
-//             $if_hidden = " no-content";
-//         }
-//         switch ($type) {
-//             case "phone":
-//                 $return = '<a class="phone' . $if_hidden . '" href="tel:' . '+61' . substr($return, 1) . '">' . $return . '</a>';
-//                 break;
-//             case 'email':
-//                 $return = '<a class="email' . $if_hidden . '" href="mailto:' . $return . '">' . $return . '</a>';
-//                 break;
-//             case 'url':
-// 				$text = '';
-// 				switch($key) {
-// 					case "linkedin":
-// 						$text = "linkedin.com/" . get_post_field('post_name');
-// 						break;
-// 					default:
-// 						$text = $return;
-// 				}
-//                 $return = '<a class="url ' . $key . $if_hidden . '" href="' . $return . '" target="_blank">' . $text . '</a>';
-//                 break;
-//             default:
-//         }
-//     }
-
-//     return $return;
-
-// }add_shortcode('get-field', 'wdd_getField');
 
 //Shortcode to show the category/ies of a post
 function wdd_show_category($atts)
@@ -255,6 +178,7 @@ function display_post($atts)
 
     // default tax_query
     $on_tax_query = '';
+    $on_tax_terms = explode(',', $on_tax_terms);
 
     // if on_tax is used
     if ($on_tax) {
@@ -345,11 +269,11 @@ function display_post($atts)
                     $col_open_last = '<div class="one_fourth et_column_last">';
                     $col_closing_last = '</div><div class="clear" ' . $style . '></div>';
                     break;
-                    case "table":
-                        $col_open = '  <tr>';
-                        $column_closing = '</tr>';
-                        $col_open_last = '<tr>';
-                        $col_closing_last = '<tr>';
+                case "table":
+                    $col_open = '  <tr>';
+                    $column_closing = '</tr>';
+                    $col_open_last = '<tr>';
+                    $col_closing_last = '<tr>';
                     break;
                 default:
                 // if the column is 1 or unset or greater than 4

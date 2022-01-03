@@ -634,3 +634,6 @@ translate(currentLanguage, '#main-header');
 addHash('#top-menu li a', document.location.hash);
 // removeHash();
 
+jQuery(document).ready(function () {
+    
+});

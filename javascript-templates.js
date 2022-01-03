@@ -6,14 +6,16 @@ jQuery(document).ready(function () {
 var scrollTop = 0;
 document.onscroll = function(e){
     var html = document.querySelector('html'); //just a sample
-	var header = document.querySelector('#main-header-section'); //just a sample
+	var header = document.querySelector('header selector'); //just a sample
     var st = window.pageYOffset || document.documentElement.scrollTop;
     if(html){
 		if(header){
             if(st > scrollTop){
                 // downscroll code
+                console.log('down '+st);
             }else{
                 // upscroll code
+                console.log('up '+ st);
             }
 		}
     scrollTop = st <= 0 ? 0 : st;
@@ -39,7 +41,14 @@ function startTime() {
     var today = new Date();
     var month =  getMonth(today.getMonth());
     var day = getDay(today.getDay());
-    var date = today.getDate()+'th';
+    var date = today.getDate();
+    var date_for_switch = checkTime(date);
+    switch (date_for_switch[1]) {
+        case "1": date = date+"st"; break;
+        case "2": date = date+ "nd"; break;
+        case "3": date = date+ "rd"; break;
+        default: date = date+ "th"; break;
+    }
     var h = today.getHours();
     var ampm = h >= 12 ? 'PM' : 'AM';
     h = h % 12;
@@ -49,7 +58,7 @@ function startTime() {
     var y = today.getFullYear();
     m = checkTime(m);
     s = checkTime(s);
-    var thetime =  day + " " + date + " of " + month + " "+ y + " " + h + ":" + m  +" "+ampm+ " PHT";
+    var thetime =  day + " " + date + " of " + month + " "+ y + " " + h + ":" + m  +":"+s+" "+ampm+ " PHT";
     jQuery('div#date-and-time > span').html(thetime);
     var t = setTimeout(startTime, 500);
 }

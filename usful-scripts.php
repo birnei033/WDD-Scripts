@@ -186,8 +186,8 @@ function sidebar_registration() {
         'name'          => __( 'Sidebar name', 'textdomain' ),
         'id'            => 'sidebar-id',
         'description'   => __( 'Insert description here', 'textdomain' ),
-        'before_widget' => '<li id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</li>',
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</div>',
         'before_title'  => '<h2 class="widgettitle">',
         'after_title'   => '</h2>',
     ) );
@@ -195,3 +195,8 @@ function sidebar_registration() {
 add_action( 'widgets_init', 'sidebar_registration' );
 
 // ##################### END #####################################
+
+
+foreach ($variable as $key => $value) {
+	# code...
+}
