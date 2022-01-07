@@ -196,7 +196,31 @@ add_action( 'widgets_init', 'sidebar_registration' );
 
 // ##################### END #####################################
 
+// Tippy.js shortcode / use the tippy js library cdn
 
-foreach ($variable as $key => $value) {
-	# code...
-}
+function tippy_click_dropdown($atts, $content = null){
+	$a = shortcode_atts( array(
+		'trigger-selector'=>'',
+		'content-id'=>''
+	), $atts);
+	
+	ob_start(); ?>
+
+	<script>
+		// append content to body
+		var the_content = document.querySelector('#<?=$a['content-id']?>');
+		document.querySelector('body').append(the_content);
+
+		// tippy
+		var the_trigger = document.querySelector('<?=$a['trigger-selector']?>');
+		tippy(the_trigger, {
+			content: the_content;
+			allowHTML: true,
+			trigger: click,
+			interactive: true,
+			placement: "bottom"
+		})
+	</script>
+
+<?php
+}add_shortcode( 'tippy_click', 'tippy_click_dropdown' );
