@@ -23,7 +23,7 @@ document.onscroll = function(e){
 }
 // #####DETECT SCROLL DIRECTION END ##########################
 
-
+ 
 
 // CLOCK WITH DATE
 

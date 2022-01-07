@@ -23,7 +23,7 @@ function handle_ajax_shortcode()
       $respond->request = $_POST['request'];
       $respond->data = $data;
       $myJSON = json_encode($respond);
-      echo $myJSON;
+      echo $myJSON; 
     }
 
     //get products request

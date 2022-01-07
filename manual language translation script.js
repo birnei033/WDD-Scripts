@@ -24,7 +24,7 @@ var translation = {
             "Japanese ": "類を見ない美味しさ、購入者の口コミ情報",
             "Korean": "구매자들에게 입소문 난 비교할 수 없는 풍미"
         },
-        {
+        { 
             "English": "Tastiness Unmatched",
             "Simplified Chinese": "",
             "Traditional Chinese": "美味無與倫比",

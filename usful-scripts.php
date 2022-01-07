@@ -176,7 +176,7 @@ function sidebar_shortcode($atts){
 }add_shortcode('get_sidebar', 'sidebar_shortcode');
 // ##################### END #####################################
 
-
+ 
 /**
  * Create a sidebar
  * url https://developer.wordpress.org/reference/functions/register_sidebar/

@@ -19,7 +19,7 @@ add_filter( 'post_type_link', 'gp_remove_cpt_slug', 10, 2 );
  * @param $query The current query.
  */
 
-
+ 
 function gp_add_cpt_post_names_to_main_query( $query ) {
 	global $post;
 	if($post->post_type == "our_services"){

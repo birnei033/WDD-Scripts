@@ -73,7 +73,7 @@ function to_footer(){
                 if($display_on_post_id[0] == $current_page_id){ ?>
 
               <div style="display: none;"><div id="my-tooltip-<?=get_the_ID()?>"><?=the_content();?></div></div>
-
+ 
              <script>
 
         		var the_content = document.querySelector('#my-tooltip-<?=get_the_ID()?>');
