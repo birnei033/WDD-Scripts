@@ -32,7 +32,7 @@ header#main-header.et-fixed-header {top: 0 !important;}
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
-    -ms-user-select: none;
+    -ms-user-select: none; 
     user-select: none;
     padding-left: 19px;
 }

@@ -348,3 +348,4 @@ function display_post($atts)
     } // end switch
 }
 add_shortcode('c_post', 'display_post');
+ 
