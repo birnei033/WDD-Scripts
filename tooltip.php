@@ -72,37 +72,12 @@ function to_footer(){
             if($trigger != '' ){
                 if($display_on_post_id[0] == $current_page_id){ ?>
 
-              <div style="display: none;"><div id="my-tooltip-<?=get_the_ID()?>"><?=the_content();?></div></div>
- 
-             <script>
+              <div style="display: none;"><div style="z-index: 999999" id="my-tooltip-<?=get_the_ID()?>"><?=the_content();?></div></div>
+               <script>
 
+            $(document).ready(function () {
         		var the_content = document.querySelector('#my-tooltip-<?=get_the_ID()?>');
-        
-        		// tippy.
-        		var the_trigger = document.querySelector('<?=$trigger[0]?>');
-        		tippy(the_trigger, {
-                        content: the_content,
-                        allowHTML: true,
-                        interactive: true,
-                    // generating the properties from properties custom field if the custom field is defined.
-                    <?php if($tippy_props == '' || $tippy_props == false) { ?>
-                        trigger: "click",
-                        placement: "bottom",
-                        animation: "scale",
-                     <?php }else{
-                         echo $tippy_props[0];
-                     } ?>
-        		});
-        	</script>
-        <?php }elseif($display_on_post_id[0] == 0){
-                ?>
-
-              <div style="display: none;"><div id="my-tooltip-<?=get_the_ID()?>"><?=the_content();?></div></div>
-
-             <script>
-
-        		var the_content = document.querySelector('#my-tooltip-<?=get_the_ID()?>');
-        
+                
         		// tippy. Feel free to add/edit its properties as you need.
         		var the_trigger = document.querySelector('<?=$trigger[0]?>');
         		tippy(the_trigger, {
@@ -113,11 +88,43 @@ function to_footer(){
                         trigger: "click",
                         placement: "bottom",
                         animation: "scale",
+                        theme: "light",
                      <?php }else{
                          echo $tippy_props[0];
                      } ?>
-        		});
+        		});  
+                 });
         	</script>
+ 
+            
+        <?php }elseif($display_on_post_id[0] == 0){
+                ?>
+            
+              <div style="display: none;"><div id="my-tooltip-<?=get_the_ID()?>"><?the_content();?></div></div>
+               <script>
+
+            $(document).ready(function () {
+        		var the_content = document.querySelector('#my-tooltip-<?=get_the_ID()?>');
+
+        		// tippy. Feel free to add/edit its properties as you need.
+        		var the_trigger = document.querySelector('<?=$trigger[0]?>');
+        		tippy(the_trigger, {
+                        content: the_content,
+                        allowHTML: true,
+                        interactive: true,
+                    <?php if($tippy_props == '' || $tippy_props == false) { ?>
+                        trigger: "click",
+                        placement: "bottom",
+                        animation: "scale",
+                        theme: "light",
+                     <?php }else{
+                         echo $tippy_props[0];
+                     } ?>
+        		});  
+                 });
+        	</script>
+
+             
         <?php
             }//end if display_on_post
         
@@ -132,6 +139,6 @@ function to_footer(){
 
 }
 // Insert the post/tooltip content after the main content of current page but displayed none;
-add_action('et_after_main_content', 'to_footer');
+add_action('wp_footer', 'to_footer');
 
 
