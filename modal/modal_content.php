@@ -35,4 +35,3 @@ jQuery(document).ready(function () {
 <style>
 <?=$css[0]?>
 </style>
-

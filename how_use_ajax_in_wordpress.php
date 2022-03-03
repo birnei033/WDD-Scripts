@@ -58,6 +58,14 @@ function handle_ajax_shortcode()
       }
       return $items;
     }
+
+    function shortcode(){
+      if (!empty($_POST['request'])) {
+          $shortcode = stripslashes($_POST['shortcode']);
+          return do_shortcode($shortcode);
+      }
+    return "Not found";
+  }
 	  
 	  function test(){
 		  return "test";
@@ -68,6 +76,9 @@ function handle_ajax_shortcode()
         ajaxRespond(get_ladder());
         break;
       case "getcart":
+        ajaxRespond(get_cart());
+        break;
+      case "shortcode":
         ajaxRespond(get_cart());
         break;
       default:
@@ -85,7 +96,7 @@ function handle_ajax_shortcode()
 ?>
 
 <script>
-
+// ajax helper function
 var ajaxRequest = (data, callback) => {
         jQuery.ajax({
             type: "POST",
@@ -97,7 +108,8 @@ var ajaxRequest = (data, callback) => {
             }
         });
      };
-		
+
+		// sample 1 - returns json
     ajaxRequest( {
         action: "handle_ajax_shortcode",
         request: "all-products",
@@ -107,6 +119,18 @@ var ajaxRequest = (data, callback) => {
         res = JSON.parse(response);
         $('div#art-gallery').append(res.data.products);
         // console.log(res);
+    });
+
+    // sample 2 - shortcode request - returns content of the shortcode
+    ajaxRequest( {
+        action: "handle_ajax_shortcode",
+        request: "shortcode",
+        shortcode: '[your-shortcode]',
+        onsale: true,
+    }, function(response){
+        res = JSON.parse(response);
+        $('div#art-gallery').append(response);
+        // console.log(response);
     });
 
  </script>
