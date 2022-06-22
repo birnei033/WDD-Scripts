@@ -1,0 +1,41 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<h1>Import from Loyverse to Woocommerce</h1>
+<button onclick="ffetch()" id="import-from-loyverse-to-woo">Import</button>
+
+
+
+<script>
+    var res = "";
+    function ffetch(){
+        console.log("Fetching..");
+        var page = "";
+        var products = {};
+        var all_products = [];
+    do {
+        var settings = {
+            "url": "https://api.loyverse.com/v1.0/items?limit=250&cursor="+page,
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "Authorization": "Bearer 100976dd3a9e4c4a98374494dec4dd97"
+            },
+            async: false,
+        };
+    
+        $.ajax(settings).done(function (response) {
+            products = response;
+            console.log(products.length+" cursor: "+page);
+            console.log(products);
+            page = response.cursor;
+        });
+  } while (page);
+     console.log("Done!");
+    }
+   
+// var fetching = new Promise((resolve, reject)=>{
+    
+   
+    
+// });
+</script>

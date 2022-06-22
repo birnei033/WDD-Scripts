@@ -142,19 +142,23 @@ function wdd_show_comment_count($atts)
 add_shortcode('post-comment-count', 'wdd_show_comment_count');
 
 //Shortcode to show the module
-function showmodule_shortcode($moduleid)
-{
-    extract(shortcode_atts(array('id' => '*'), $moduleid));
-    return do_shortcode('[et_pb_section global_module="' . $id . '"][/et_pb_section]');
+if(!function_exists('showmodule_shortcoded')){
+    function showmodule_shortcode($moduleid)
+    {
+        extract(shortcode_atts(array('id' => '*'), $moduleid));
+        return do_shortcode('[et_pb_section global_module="' . $id . '"][/et_pb_section]');
+    }
+    add_shortcode('showmodule', 'showmodule_shortcode');
 }
-add_shortcode('showmodule', 'showmodule_shortcode');
 
 //Shortcode to show the module 2
-function showmodule_shortcoded($moduleid)
-{
-    extract(shortcode_atts(array('id' => '*'), $moduleid));
-    return do_shortcode(get_post($id)->post_content);
+if(!function_exists('showmodule_shortcoded')){
+    function showmodule_shortcoded($moduleid)
+    {
+        extract(shortcode_atts(array('id' => '*'), $moduleid));
+        return do_shortcode(get_post($id)->post_content);
+    }
+    add_shortcode('showmodule2', 'showmodule_shortcoded');
 }
-add_shortcode('showmodule2', 'showmodule_shortcoded');
 
 // ------------------------------------------------------------------------------------
