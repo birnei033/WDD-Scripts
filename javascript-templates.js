@@ -174,3 +174,50 @@ jQuery.ajax({
       jQuery('.search-loader').remove();
   }
 });
+
+/**End ######################## */
+
+/**
+ * Woocommerce Add/Remove cart events
+ * "Enable AJAX add to cart buttons on archives" must be enabled in WooCommerce->Settings->Products
+ * Reference https://wordpress.stackexchange.com/questions/342148/list-of-js-events-in-the-woocommerce-frontend
+ */
+jQuery(document).ready(function ($) {
+  $(document.body).on("added_to_cart", (e, fragments, cart_hash, this_button)=>{
+    var cart_count_el = $('.cart-icon').attr('cart-count');
+    var current_count = parseInt(cart_count_el);
+    cart_count_el = current_count + 1;
+    $('.cart-icon').attr('cart-count', cart_count_el);
+    console.log(cart_count_el);
+  });
+
+  $(document.body).on("removed_from_cart", (e, fragments, cart_hash, this_button)=>{
+    var cart_count_el = $('.cart-icon').attr('cart-count');
+    var current_count = parseInt(cart_count_el);
+    cart_count_el = (current_count) != 0 ? current_count - 1 : current_count;
+    console.log(cart_count_el);
+    $('.cart-icon').attr('cart-count', cart_count_el);
+  });
+
+  $(document.body).on("wc_cart_emptied", (e, fragments, cart_hash, this_button)=>{
+    console.log(cart_count_el);
+    $('.cart-icon').attr('cart-count', 0);
+  });
+});
+
+// ################# END "Woocommerce Add/Remove cart events"
+
+/**
+ * Custom JS event listener function
+ * @param {string} type The type of DOM event
+ * @param {string} selector DOM selector
+ * @param {function} callback Fires when the event is active 
+ */
+
+function addGlobalEventListener(type, selector, callback){
+  document.addEventListener(type, e =>{
+    if(e.target.matches(selector)) callback(e)
+  })
+}
+
+// END "Custom JS event listener function" #######################################
