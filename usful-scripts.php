@@ -224,3 +224,62 @@ function tippy_click_dropdown($atts, $content = null){
 
 <?php
 }add_shortcode( 'tippy_click', 'tippy_click_dropdown' );
+
+/**
+ * Woocommerce
+ * Adding a woocoomerce fragments.
+ * Example below for cart count
+ * The HTML to be refreshed: So first you should need to embed the cart count in a specific 
+ * html tag with a defined unique ID (or a class).
+ */
+function add_custom_fragments($fragments ){
+	ob_start();
+	$items_count = WC()->cart->get_cart_contents_count(); ?>
+	<a data-count="<?php echo $items_count ? $items_count : '&nbsp;'; ?>" class="cart-icon" href="#"><?php echo $items_count ? $items_count : '&nbsp;'; ?></a>
+	<?php
+	$fragments['.cart-icon'] = ob_get_clean();
+	return $fragments;
+ }add_filter('add_to_cart_fragments', 'add_custom_fragments');
+
+
+ // Trim woocommerce product name
+remove_action( 'woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10 );
+add_action( 'woocommerce_shop_loop_item_title', 'wdd_woocommerce_template_loop_product_title', 20 );
+function wdd_woocommerce_template_loop_product_title(){
+    $title = get_the_title();
+    $trimmed_title = strlen($title) > 25 ? substr($title, 0, 25)."..." : $title;
+    echo '<h2 title="'.$title.'" class="woocommerce-loop-product__title">'.$trimmed_title.'</h2>';
+}
+
+//########################################################
+//Display ACF Repeater
+function my_acf_repeater($atts, $content='') {
+	extract(shortcode_atts(array(
+	  "field" => null,
+	  "sub_fields" => null,
+	  "post_id" => null
+	), $atts));
+  
+	$sub_fields = explode(",", $sub_fields);
+	
+	$_finalContent = '';
+  
+	if( have_rows($field, $post_id) ):
+	  while ( have_rows($field, $post_id) ) : the_row();
+		
+		$_tmp = $content;
+		foreach ($sub_fields as $sub) {
+		  $subValue = get_sub_field(trim($sub));
+		  $_tmp = str_replace("%$sub%", $subValue, $_tmp);
+		}
+		$_finalContent .= do_shortcode( $_tmp );
+  
+	  endwhile;
+	else :  
+	  $_finalContent = "";
+	endif;
+  
+	return $_finalContent;
+  }
+  
+  add_shortcode("acf_repeater", "my_acf_repeater");

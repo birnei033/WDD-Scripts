@@ -2,25 +2,39 @@ jQuery(document).ready(function () {
     
 });
 
-// DETECT SCROLL DIRECTION
-var scrollTop = 0;
-document.onscroll = function(e){
-    var html = document.querySelector('html'); //just a sample
-	var header = document.querySelector('header selector'); //just a sample
-    var st = window.pageYOffset || document.documentElement.scrollTop;
-    if(html){
-		if(header){
-            if(st > scrollTop){
-                // downscroll code
-                console.log('down '+st);
-            }else{
-                // upscroll code
-                console.log('up '+ st);
-            }
-		}
-    scrollTop = st <= 0 ? 0 : st;
-    }
-}
+/**
+ * @param {string} target selector of the target element
+ * @param {callback} up execute function when scrolling up
+ * @param {callback} down execute function when scrolling down
+ * @return {Promise} target element scrollTop Value
+ */
+ const scroll = async (target, up, down)=>{
+  // DETECT SCROLL DIRECTION
+  var scrollTop = 0;
+  var st = null;
+  var html = document.querySelector(target); //just a sample
+  document.onscroll = function(e){
+      st = window.pageYOffset || document.documentElement.scrollTop;
+      if(html){
+          if(st > scrollTop){
+              down(st);
+          }else{
+              up(st);
+          }
+          scrollTop = st <= 0 ? 0 : st;
+      }
+  }
+  return html.scrollTop;
+};
+
+// usage
+scroll(
+  'html',
+  (st)=>{console.log(st);},
+  (st)=>{console.log(st);}
+).then((sc)=>{
+  console.log(sc);
+});
 // #####DETECT SCROLL DIRECTION END ##########################
 
  
@@ -216,8 +230,67 @@ jQuery(document).ready(function ($) {
 
 function addGlobalEventListener(type, selector, callback){
   document.addEventListener(type, e =>{
-    if(e.target.matches(selector)) callback(e)
-  })
+    if(e.target.matches(selector)) callback(e);
+  });
 }
 
 // END "Custom JS event listener function" #######################################
+
+/**
+ * Promise simple/basic syntax
+ */
+
+let myPromise = (param)=>{
+  return new Promise((resolve, reject)=>{
+    if(true){
+      resolve({data: "resolved"});
+    }else{
+      reject({data: "rejected"});
+    }
+  });
+}
+
+// usage 
+myPromise('param')
+  .then((data)=>{
+    // your code here
+    console.log(data);
+    return {anotherData: ""};
+  })
+  .then((anotherData)=>{
+    console.log(anotherData);
+});
+
+// can also use async function - returns a promise
+// usage is the same as above
+
+let myPromiseAsync = async (param)=>{
+  return {data: "data returned"};
+}; 
+
+// END Promise syntax ############################################
+
+/**
+ * Sweet Alert in CF7
+ * Add Sweet alert when contact form 7 is submitted
+ * {cdn} <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ * selft invoked function
+ */
+
+ const form_submitted = (()=>{
+  var wpcf7Elm = document.querySelector( '.wpcf7' );
+  var detail = null;
+  wpcf7Elm.addEventListener( 'wpcf7submit', ( event ) => {
+    detail = event.detail;
+    var status = event.detail.apiResponse.status;
+    var icon = (status == "validation_failed") ? "error" : "success";
+    swal.fire({
+    icon: icon,
+    text: event.detail.apiResponse.message,
+  });
+  }, false );
+
+  return ()=>{
+    return detail
+  };
+})();
