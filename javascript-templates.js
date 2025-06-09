@@ -285,12 +285,32 @@ let myPromiseAsync = async (param)=>{
     var status = event.detail.apiResponse.status;
     var icon = (status == "validation_failed") ? "error" : "success";
     swal.fire({
-    icon: icon,
-    text: event.detail.apiResponse.message,
-  });
+      icon: icon,
+      text: event.detail.apiResponse.message,
+    });
   }, false );
 
   return ()=>{
     return detail
   };
+})();
+
+
+// END ##############################
+
+/**
+ * Hide Nitro pack from footer
+ */
+
+(function() {
+  // Select the div with inline style containing display: block and no id attribute
+  const div = Array.from(document.querySelectorAll("body>div"))
+    .find(el => el.style.display === "block" && !el.id);
+
+  // Delay the display style update by 500ms
+  if (div) {
+    setTimeout(() => {
+      div.style.display = "none";
+    }, 500);
+  }
 })();
